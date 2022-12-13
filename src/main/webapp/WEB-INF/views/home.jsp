@@ -9,9 +9,11 @@ body{justify-content: center;}
 div{margin: 0 auto;}
 ul li{list-style:none;}
 a{ text-decoration: none; color:inherit;}
-.head {width:1200px; text-align: right; line-height: 36px; }
-.mainmenu1{height:70px; width:1200px; text-align: right;border-bottom: 1px solid #ccc;}
-.menu {width: 99%; border-bottom:1px solid #ccc; }
+
+.head {width:1000px; text-align: right; line-height: 36px; }
+.mainmenu1{height:70px; width:1000px; text-align: right;border-bottom: 1px solid #ccc;}
+
+.menu {width: 99%; border-bottom:1px solid #ccc;}
 .mainmenu2{
 	display:block;
 	height:70px;
@@ -23,27 +25,32 @@ a{ text-decoration: none; color:inherit;}
 	height: 70px;
 	display:inline-block;
 	position: relative;
-	width:110px;
+	width:90px;
 	}
+
 .li {display:flex; justify-content: center; align-items: center; height: 70px;}
-.menu:hover .sub1 {opacity: 98%; } 
-.mainmenu2>li:hover {text-decoration: underline;}
+
+.mainmenu2>li:hover {background-color: #6680CC;}
+.sub2 span:hover {background-color: #6680CC; }
+
 .sub1{
+	opacity:0%;
 	width: 99%; 
 	height:250px;
 	background-color: white;
 	z-index: 2;
-	opacity:0%;
 	transition: 1s all;
 	position:absolute;
 }
+
 .sub2{
-	width:1200px;  
+	width:1000px;  
 	text-align: left; 
 	margin: 0 auto; 
 	padding-left: 10px;
 	}
-span{display:block;}
+.sub2 span{display:block;}
+
 .submenu {
 	vertical-align: top;
 	width: 15%;
@@ -52,22 +59,51 @@ span{display:block;}
 	padding: 5px;
 	height: 95%;
 }
+
+.sublast {
+	vertical-align: top;
+	width: 15%;
+	display:inline-block; 
+	padding: 5px;
+	height: 95%;
+}
+
 .subtitle{
 	border-bottom: 1px solid #ccc;
 	height:30px;
 	font-weight: middle;
 	}
-.slider_main{z-index: -1; width:1600px; height: 370px;position: absolute;}
-.container{width: 1600px;margin: 0 auto;}
+
+.dropmenu {opacity:98%;}
+
+
+.slider_main{z-index: -1; width:1400px; height: 370px;position: absolute;}
+
+.container{width: 1400px;margin: 0 auto;}
+
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
-
 <script>
  	$(document).ready(function() {
 		$('.slider_main').bxSlider();
 	});
+ 	
+ 	$(document).ready(function() {
+		$('.mainmenu2').on("click",function(){
+			$('.sub1').addClass('dropmenu');
+		});
+	});
+ 	$(document).ready(function() {
+		$('.sub2').hover(function(){
+			
+		},function(){
+			$('.sub1').removeClass('dropmenu');
+		});
+	});
+ 	
+ 
  
 </script>
 </head>
@@ -75,14 +111,13 @@ span{display:block;}
 <body>
 <div style="width: 99%; border-bottom: 1px solid #ccc;">
 <div class="head">
-	<a href="http://www.royalpalace.go.kr:8080/html/eng_gbg/main/main.jsp" target="_blank" title="경복궁 영문사이트 새창으로 이동">ENGLISH</a>
-&nbsp;
-	<a href="https://twitter.com/royalpalacego" target="_blank">
-			<img src="<spring:url value='/resources/img/ico_tweeter.png'/>"style="width:26px;"> </a>&nbsp;
-	<a href="https://www.instagram.com/gyeongbokgung_palace_official/" target="_blank">
-			<img src="<spring:url value='/resources/img/ico_insta.png'/>"style="width:26px;"> </a>&nbsp;
-	<a href="http://www.mois.go.kr/frt/sub/popup/p_taegugki_banner/screen.do" target="_blank">
+	<a href="/sae_member/login">로그인</a> |
+	<a href="/sae_member/register">회원가입</a> &nbsp;
+	
+
+<%-- 	<a href="http://www.mois.go.kr/frt/sub/popup/p_taegugki_banner/screen.do" target="_blank">
 			<img src="<spring:url value='/resources/img/korea.png'/>" style="width:127px;"></a>
+ --%>
 </div>
 </div>
 
@@ -90,16 +125,17 @@ span{display:block;}
 
 	<div class="mainmenu1">
 	<div style="display: inline-block; float: left; height: 70px;">
-			<img src="<spring:url value='/resources/img/logo.png'/>"style="height:40px;"></div>
+			<img src="<spring:url value='/resources/img/logo.png'/>"style="height:40px;">
+	</div>
 	
 	<div style="height: 70px;">
 	<ul class="mainmenu2">
-		<li><div class="li"><a href="#">관람안내</a></div></li>
-		<li><div class="li"><a href="#">관람예약</a></div></li>
-		<li><div class="li"><a href="#">구매</a></div></li>
-		<li><div class="li"><a href="#">참여마당</a></div></li>
-		<li><div class="li"><a href="#">경복궁안내</a></div></li>
-		<li><div class="li"><a href="#">마이페이지</a></div></li>
+		<li><div class="li">관람안내</div></li>
+		<li><div class="li">관람예약</div></li>
+		<li><div class="li">구매</div></li>
+		<li><div class="li">참여마당</div></li>
+		<li><div class="li">경복궁안내</div></li>
+		<li><div class="li">마이페이지</div></li>
 	</ul>
 	</div>
 	</div>
@@ -122,7 +158,7 @@ span{display:block;}
 		<div class="submenu">
 			<span class="subtitle">구매하기</span><br>
 			<span><a href="#">입장권</a></span><br>
-			<span><a href="sae_product/hi.jsp">굿즈</a></span><br>
+			<span><a href="#">굿즈</a></span><br>
 			<span><a href="#">한복대여</a></span><br>
 			<span><a href="#">관람시간/요금</a></span>
 		</div>
@@ -137,7 +173,7 @@ span{display:block;}
 			<span><a href="#">사계</a></span><br>
 			<span><a href="#">역사</a></span><br>
 		</div>
-		<div style="width: 16%; display: inline-block;padding: 5px;">
+		<div class="sublast">
 			<span class="subtitle">마이페이지</span><br>
 			<span><a href="#">내정보</a></span><br>
 			<span><a href="#">찜목록</a></span><br>
@@ -169,6 +205,11 @@ span{display:block;}
 		
 	</div>	
 	
+	
+	
+	
+	
+
 </div>	
 <footer></footer>
 </body>

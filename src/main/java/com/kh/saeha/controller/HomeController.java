@@ -1,4 +1,4 @@
-package com.kh.saeha;
+package com.kh.saeha.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
