@@ -12,7 +12,7 @@
 $(document).ready(function(){
 	//홈버튼
 	$("#gohome").on("click", function(){
-		location.href = "/saeha"
+		location.href = "/sae_member/login"
 	});
 });
 </script>

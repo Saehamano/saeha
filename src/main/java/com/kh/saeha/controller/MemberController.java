@@ -20,7 +20,7 @@ import com.kh.saeha.service.MemberService;
 import com.kh.saeha.vo.MemberVO;
 
 @Controller
-@RequestMapping("/sae_member/*")
+@RequestMapping("/sae_member/*") 
 public class MemberController {
 
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
@@ -35,6 +35,7 @@ public class MemberController {
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public void getRegister() throws Exception {
 		logger.info("get register 2022 1201");
+		
 	}
 
 	// 회원가입 get 22
@@ -43,13 +44,13 @@ public class MemberController {
 		logger.info("post register");
 		service.register(vo);
 
-		return "redirect:/";
+		return "sae_member/login";
 	}
 
 	// 로그인 33
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public void getlogin() throws Exception {
-		logger.info("get login~~~ 33");
+		
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -224,6 +225,7 @@ public class MemberController {
 		rttr.addFlashAttribute("msg", true);
 		
 		session.setAttribute("loginlogin", "hello");
+		System.out.println(login);
 
 		return "redirect:/";
 	}

@@ -11,7 +11,7 @@
 <script>
 $(document).ready(function(){
 	$("#getpass").on("click", function(){
-		location.href = "/saeha/sae_member/sendmail?userMail=" + $("#findPWMAIL").val() + "&&userId=" +$("#findPWID").val();
+		location.href = "/sae_member/sendmail?userMail=" + $("#findPWMAIL").val() + "&&userId=" +$("#findPWID").val();
 	})
 });
 </script>

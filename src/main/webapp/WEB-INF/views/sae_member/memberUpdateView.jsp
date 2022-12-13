@@ -19,7 +19,7 @@
 $(document).ready(function(){
 	//취소
 	$(".cencle").on("click", function(){
-		location.href = "/saeha";
+		location.href = "/sae_member/login";
 	});
 	
 	$(".delete").on("click", function(){
@@ -27,7 +27,7 @@ $(document).ready(function(){
 		var result = confirm("정말 탈퇴하시겠습니까?");
 		if(result){
 			alert("이용해주셔서 감사합니다. 더 좋은 서비스로 찾아뵙겠습니다.");
-		location.href = "/saeha/sae_member/memberDelete?userId=" + $("#userId").val();
+		location.href = "/sae_member/memberDelete?userId=" + $("#userId").val();
 		}else{
 			alert("앞으로 더 좋은 서비스로 보답하겠습니다.");
 		}
@@ -65,7 +65,7 @@ $(document).ready(function(){
 </script>
 <body>
 <section id="container">
-<form action="/saeha/sae_member/memberUpdate" method="post">
+<form action="/sae_member/memberUpdate" method="post">
 <div class="form-group has-feedback">
 <label class="control-label" for="userId">아이디</label>
 <input class="form-control" type="text" id="userId" name="userId" value="${member.userId}" readonly="readonly">

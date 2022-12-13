@@ -101,7 +101,7 @@
 		$("#userId").on("keyup", function(){
 			var xhr = new XMLHttpRequest();
 			
-			xhr.open("GET", "http://localhost:8080/saeha/over?userId="+$("#userId").val(), true);
+			xhr.open("GET", "http://localhost:8080/over?userId="+$("#userId").val(), true);
 			xhr.send();
 			
 			xhr.onreadystatechange = function(){
@@ -176,7 +176,7 @@
 </script>
 <body>
 	<section id="container">
-		<form action="/saeha/sae_member/register" method="post">
+		<form action="/sae_member/register" method="post">
 			<div class="form-group has-feedback">
 				<label class="control-label" for="userId">아이디</label><span id="over1">&nbsp;&nbsp;&nbsp;</span><input
 					class="form-control" type="text" id="userId" name="userId" />
