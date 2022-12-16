@@ -12,7 +12,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 </settings>
 
 <typeAliases>
- <typeAlias type="com.kh.saeha.vo.MemberVO" alias="memberVO"/>
+	<typeAlias type="com.kh.saeha.vo.MemberVO" alias="memberVO"/>
+	<typeAlias type="com.kh.saeha.vo.GoodsVO" alias="goodsVO"/>
 </typeAliases>
 
 </configuration>
