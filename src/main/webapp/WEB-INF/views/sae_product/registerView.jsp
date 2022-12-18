@@ -24,7 +24,7 @@
 			return false;
 			}
 		
-		formObj.attr("action", "/sae_product/goodswrite");
+		formObj.attr("action", "/sae_product/productwrite");
 		formObj.attr("method","post");
 		formObj.submit();
 		});
@@ -42,43 +42,49 @@
 <body>
 <div id = "root">
 	<header>
-		<h1>굿즈 등록</h1>
+		<h1>상품 등록</h1>
 	</header>
 		<hr />
 	<hr />
 	
 	<section id = "container">
-	<form action="/sae_product/goodswrite" enctype="multipart/form-data" name = "writeForm" method="post">
+	<form action="/sae_product/productwrite" enctype="multipart/form-data" name = "writeForm" method="post">
 	<table>
 	<tbody>
 		<c:if test="${member.userId == 'admin' }">
-		<input type="hidden" id="go_readcount" name=go_readcount value="0" />
+		<input type="hidden" id="pd_readcount" name=pd_readcount value="0" />
 		<tr><td>
-			<label for= "go_name">굿즈 이름</label><input type="text" id="go_name" name="go_name" class="chk" title="굿즈 이름을 입력하세요" />
-			</td>
-		</tr>
-		<tr>
-			<td>
-			<label for = "go_content">상세 설명</label><textarea id="go_content" name = "go_content" class="chk" title="상세셜명을 입력하세요." ></textarea>
-			</td>
-		</tr>
-		<tr>
-			<td>
-			<label for = "go_stock">재고수량</label><input type="number" id="go_stock" name = "go_stock" class="chk" title="재고수량을 입력하세요." />
-			</td>
-		</tr>
-		<tr>
-			<td>
-			<label for= "go_price">가격</label><input type="number" id="go_price" name="go_price" class="chk" title="가격을 입력하세요." />
+			<label for= "pd_type">상품 종류</label>	
+			<input type="radio" name="pd_type" value="g">굿즈
+			<input type="radio" name="pd_type" value="h">한복
 			</td>
 		</tr>
 		<tr><td>
-			<label for= "uploadFile">굿즈사진</label><input type="file" id="uploadFile" name="uploadFile" class="chk" title="굿즈 사진을 입력하세요" />
+			<label for= "pd_name">상품 이름</label><input type="text" id="pd_name" name="pd_name" class="chk" title="굿즈 이름을 입력하세요" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<label for = "pd_content">상세 설명</label><textarea id="pd_content" name = "pd_content" class="chk" title="상세셜명을 입력하세요." ></textarea>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<label for = "pd_stock">재고수량</label><input type="number" id="pd_stock" name = "pd_stock" class="chk" title="재고수량을 입력하세요." />
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<label for= "pd_price">가격</label><input type="number" id="pd_price" name="pd_price" class="chk" title="가격을 입력하세요." />
+			</td>
+		</tr>
+		<tr><td>
+			<label for= "uploadFile">굿즈사진</label><input type="file" id="uploadFile" multiple="multiple" name="uploadFile" class="chk" title="굿즈 사진을 입력하세요" />
 			</td>
 		</tr>
 		<tr>	
 			<td>
-			<button class="write_btn" type="submit">작성</button>
+			<button class="write_btn" type="submit">등록</button>
 			</td>
 		</tr>
 		</c:if>

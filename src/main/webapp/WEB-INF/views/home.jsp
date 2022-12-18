@@ -158,7 +158,7 @@ a{ text-decoration: none; color:inherit;}
 		<div class="submenu">
 			<span class="subtitle">구매하기</span><br>
 			<span><a href="#">입장권</a></span><br>
-			<span><a href="/sae_product/goodslist">굿즈</a></span><br>
+			<span><a href="/sae_product/productmain">굿즈</a></span><br>
 			<span><a href="#">한복대여</a></span><br>
 			<span><a href="#">관람시간/요금</a></span>
 		</div>

@@ -14,18 +14,15 @@
 <script
 	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <meta charset="UTF-8">
-<title>굿즈 리스트</title>
+<title>상품 리스트</title>
 </head>
 <body>
 	
 	<div>
-	<c:if test = "${member.userId == 'admin' }"> 
-		<button><a href="/sae_product/goodsregisterView">굿즈 등록</a></button>
-	</c:if>
-	</div>
-	
-	<div>
 		<button><a href="/">메인페이지로</a></button>
+	</div>
+	<div>
+		<button><a href="/sae_product/productmain">상품페이지로</a></button>
 	</div>
 	
 	
@@ -41,26 +38,26 @@
 				<thead>
 					<tr>
 					 <th>상품번호</th>
-					 <th>사진</th>
-					 <th>굿즈 이름</th>
-					 <th>굿즈 가격</th>
+					 <th>상품사진</th>
+					 <th>상품 이름</th>
+					 <th>상품 가격</th>
 					 <th>재고수량</th>
 					 <th>등록일자</th>
-					 <th>조회수</th>
+					 <th>상품 조회수</th>
 					</tr>
 				</thead>
 				<c:forEach items="${goodslist }" var="goodslist">
 					<tr>
-						<td><c:out value="${goodslist.go_bno }" /></td>
-						<td><a href="/sae_product/gread?go_bno=${goodslist.go_bno}&page=${scri.page}&perPageNum=${scri.perPageNum}
+						<td><c:out value="${goodslist.pd_bno }" /></td>
+						<td><a href="/sae_product/read?pd_bno=${goodslist.pd_bno}&pd_type=${goodslist.pd_type}&page=${scri.page}&perPageNum=${scri.perPageNum}
 									&searchType=${scri.searchType }&keyword=${srci.keyword }">
-							<img src="/resources/goodsimg/${goodslist.go_file }"/></a></td>
+							<img src="/resources/productimg/${goodslist.pd_file }"/></a></td>
 							
-						<td><c:out value="${goodslist.go_name}" /></td>
-						<td><c:out value="${goodslist.go_price }" /></td>
-						<td><c:out value="${goodslist.go_stock }"/></td>
-						<td><fmt:formatDate value="${goodslist.go_date}" pattern="yyyy-MM-dd" /></td>
-						<td><c:out value="${goodslist.go_readcount }"/></td>
+						<td><c:out value="${goodslist.pd_name}" /></td>
+						<td><c:out value="${goodslist.pd_price }" /></td>
+						<td><c:out value="${goodslist.pd_stock }"/></td>
+						<td><fmt:formatDate value="${goodslist.pd_date}" pattern="yyyy-MM-dd" /></td>
+						<td><c:out value="${goodslist.pd_readcount }"/></td>
 					</tr>
 				</c:forEach>
 
@@ -70,7 +67,7 @@
 				<div class="col-xs-2 col-sm-2">
 					<select name="searchType" class="form-control">
 						<option value="n" <c:out value="${scri.searchType == null ? 'selected' : ''}" />>---------</option>
-						<option value="gn" <c:out value="${scri.searchType eq 'gn' ? 'selected' : ''}" />>굿즈이름</option>
+						<option value="pn" <c:out value="${scri.searchType eq 'pn' ? 'selected' : ''}" />>상품이름</option>
 					</select>
 				</div>
 
@@ -87,7 +84,7 @@
 				<script>
 					$(function() { 
 						$('#searchBtn').click(function() {
-						self.location = "goodslist" + '${pageMaker.makeQuery(1)}' + "&searchType=" + $("select option:selected").val()
+						self.location = "goodslist" + '${gpageMaker.makeQuery(1)}' + "&searchType=" + $("select option:selected").val()
 						+ "&keyword="+ encodeURIComponent($('#keywordInput').val());
 							});
 						});
@@ -96,18 +93,18 @@
 		</div>
 		<div class="col=md-offset-3">
 			<ul class="pagination">
-			 <c:if test="${pageMaker.prev}">
-				<li><a href="goodslist${pageMaker.makeSearch(pageMaker.startPage - 1)}">이전</a></li>
+			 <c:if test="${gpageMaker.prev}">
+				<li><a href="goodslist${gpageMaker.makeSearch(gpageMaker.startPage - 1)}">이전</a></li>
 			 </c:if>
 
-			<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
-			 <li <c:out value = "${pageMaker.cri.page == idx ? 'class=info' : ''}" />>
-				<a href="goodslist${pageMaker.makeSearch(idx)}">${idx}</a>
+			<c:forEach begin="${gpageMaker.startPage}" end="${gpageMaker.endPage}" var="idx">
+			 <li <c:out value = "${gpageMaker.cri.page == idx ? 'class=info' : ''}" />>
+				<a href="goodslist${gpageMaker.makeSearch(idx)}">${idx}</a>
 			 </li>
 			</c:forEach>
 
-			<c:if test="${pageMaker.next && pageMakerendPage > 0 }">
-			 <li><a href="goodslist${pageMaker.makeSearch(pageMaker.endPage + 1 )}">다음</a></li>
+			<c:if test="${gpageMaker.next && gpageMakerendPage > 0 }">
+			 <li><a href="goodslist${gpageMaker.makeSearch(gpageMaker.endPage + 1 )}">다음</a></li>
 			</c:if>
 		   </ul>
 		</div>
