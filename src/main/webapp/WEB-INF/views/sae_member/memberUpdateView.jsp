@@ -6,15 +6,81 @@
 <!DOCTYPE html>
 <html>
 <head>
-      <!-- 최소화된 최신 CSS -->
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-      <!-- 부가적인 테마 -->
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-       
-       <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ <style type="text/css">
+body{justify-content: center; margin: 0 auto;width:100%;}
+.user-wrap {
+	background-image: url(/resources/img/login_bnr.jpeg);
+	height: 300px;
+    background-size: cover;
+    background-position: 50% 50%;
+	}
+
+.login_text{
+	position: absolute;
+	top: 35%;
+	left:50%;
+	width:100%;
+	transform: translate(-50%,-50%);
+	font-size: 48px;
+	text-align: center;
+	color:white;
+}
+.agree{
+    border: 2px solid #ebebeb;
+    color: #505050;
+    width: 200px;
+    height: 35px;
+    text-align: center;
+    background-repeat-x: no-repeat;
+    background-repeat-y: no-repeat;
+    background-position-x: 50%;
+    background-position-y: 25px;
+    padding-top: 100px;
+    background-size: 56px;
+}
+.agree1{
+ 	border: 2px solid black;
+    width: 200px;
+    height: 35px;
+    text-align: center;
+    background-image: url(/resources/img/join1.png);
+    background-repeat-x: no-repeat;
+    background-repeat-y: no-repeat;
+    background-position-x: 50%;
+    background-position-y: 25px;
+    padding-top: 100px;
+    background-size: 56px;
+}
+.agree2{
+	color: #808080;
+    font-size: 15px;
+    margin-top: 10px;
+    display: block;
+    text-align: center;
+}
+hr{background:#ebebeb;
+    height:1.5px;
+    border:0;}
+.title{ margin-top: 60px;font-size: 20px;}
+.formdiv{padding: 11px 0; display: flex;}
+
+.formdiv label::before{
+	content: "v ";
+    line-height: 26px;
+    color: #366ac1;
+    font-size: 16px;
+}
+label{
+/* 	border: 1px solid black; */
+	height: 30px;
+	width: 140px;
+	}
+
+</style>   
 <meta charset="UTF-8">
-<title>회원 업데이트</title>
+<title>회원정보수정</title>
 </head>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
 $(document).ready(function(){
 	//취소
@@ -64,42 +130,83 @@ $(document).ready(function(){
 });
 </script>
 <body>
-<section id="container">
-<form action="/sae_member/memberUpdate" method="post">
-<div class="form-group has-feedback">
-<label class="control-label" for="userId">아이디</label>
-<input class="form-control" type="text" id="userId" name="userId" value="${member.userId}" readonly="readonly">
+
+<%@include file='../include/nav.jsp' %>
+
+<div class="user-wrap">
+<div class="login_text"><p>회원가입</p></div>
 </div>
-<div class="form-group has-feedback">
-<label class="control-label" for="userPass">패스워드</label>
-<input class="form-control" type="password" id="userPass" name="userPass" value="${member.userPass}"/>
+
+<div style="padding:60px 0; height: 100%;">
+
+	<!--아이콘박스 -->
+	<div style="display: flex; width: 720px;">
+		<div>
+		<div class="agree" style="background-image: url(/resources/img/join1g.png);"><strong>약관동의</strong></div>
+		<span class="agree2">STEP.1</span>
+		</div>
+		
+		<div>
+		<div class="agree1" style="background-image: url(/resources/img/join2b.png);"><strong>정보입력</strong></div>
+		<span class="agree2">STEP.2</span>
+		</div>
+	
+		<div>
+		<div class="agree" style="background-image: url(/resources/img/join3g.png);"><strong>가입완료</strong></div>
+		<span class="agree2">STEP.3</span>
+		</div>
+	</div>
+	<!--회원가입 -->
+	<div style="width:85%;">
+		<div class="title">개인정보</div>
+		<hr>
+		<section id="container">
+		<form action="/sae_member/memberUpdate" method="post">
+		
+		<div class="formdiv">
+			<label for="userId">아이디</label>
+			<input  type="text" id="userId" name="userId" value="${member.userId}" readonly="readonly">
+		</div>
+		<hr>
+		<div class="formdiv">
+			<label  for="userPass">패스워드</label>
+			<input  type="password" id="userPass" name="userPass" value="${member.userPass}"/>
+		</div>
+		<hr>
+		<div class="formdiv">
+			<label for="userName">성명</label>
+			<input  type="text" id="userName" name="userName" value="${member.userName}" readonly="readonly"/>
+		</div>
+		<hr>
+		<div class="formdiv">
+			<label for="userBirth">생년월일</label>
+			<input  type="text" id="userBirth" name="userBirth" value="${member.userBirth}" readonly="readonly"/>
+		</div>
+		<hr>
+		<div class="formdiv">
+			<label  for="userTel">전화번호</label>
+			<input  type="text" id="userTel" name="userTel" value="${member.userTel}" />
+		</div>
+		<hr>
+		<div class="formdiv">
+			<label  for="userMail">메일</label>
+			<input  type="text" id="userMail" name="userMail" value="${member.userMail}" />
+		</div>
+		<hr>
+		<div class="formdiv">
+			<label  for="userAddress">주소</label>
+			<input  type="text" id="userAddress" name="userAddress" value="${member.userAddress}" />
+		</div>
+		<hr>
+		<div style="text-align: center;">
+			<button  type="button" id="delete" name="delete"
+			style=" height: 45px; padding: 12px 18px; background-color: grey;color:white;">회원 탈퇴</button>
+			<button  type="submit" id="submit" 
+			style=" height: 45px; padding: 12px 18px; background-color: black;color:white;">회원정보수정</button>
+		</div>
+	</form>
+	</section>
 </div>
-<div class="form-group has-feedback">
-<label class="control-label" for="userName">성명</label>
-<input class="form-control" type="text" id="userName" name="userName" value="${member.userName}" readonly="readonly"/>
 </div>
-<div class="form-group has-feedback">
-<label class="control-label" for="userBirth">생년월일</label>
-<input class="form-control" type="text" id="userBirth" name="userBirth" value="${member.userBirth}" readonly="readonly"/>
-</div>
-<div class="form-group has-feedback">
-<label class="control-label" for="userTel">전화번호</label>
-<input class="form-control" type="text" id="userTel" name="userTel" value="${member.userTel}" />
-</div>
-<div class="form-group has-feedback">
-<label class="control-label" for="userMail">메일</label>
-<input class="form-control" type="text" id="userMail" name="userMail" value="${member.userMail}" />
-</div>
-<div class="form-group has-feedback">
-<label class="control-label" for="userAddress">주소</label>
-<input class="form-control" type="text" id="userAddress" name="userAddress" value="${member.userAddress}" />
-</div>
-<div class="form-group has-feedback">
-<button class="btn btn-success" type="submit" id="submit">회원정보수정</button>
-<button class="cencle btn btn-danger" type="button">목록 이동</button>
-<button class="delete" type="button" id="delete" name="delete">회원 탈퇴</button>
-</div>
-</form>
-</section>
 </body>
 </html>

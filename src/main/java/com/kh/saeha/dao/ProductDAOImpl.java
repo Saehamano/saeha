@@ -1,12 +1,14 @@
 package com.kh.saeha.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.kh.saeha.vo.ImgVO;
 import com.kh.saeha.vo.ProductVO;
 import com.kh.saeha.vo.SearchCriteria;
 
@@ -18,8 +20,8 @@ public class ProductDAOImpl implements ProductDAO {
 	
 	// 상품 등록
 	@Override
-	public void productwrite(ProductVO goodsVO) throws Exception {
-		sqlSession.insert("productMapper.insert", goodsVO);
+	public void productwrite(ProductVO productVO) throws Exception {
+		sqlSession.insert("productMapper.insert", productVO);
 	}
 	
 	
@@ -44,14 +46,14 @@ public class ProductDAOImpl implements ProductDAO {
 	
 	// 상품 수정
 	@Override
-	public void gupdate(ProductVO goodsVO) throws Exception {
-		sqlSession.update("productMapper.update", goodsVO);
+	public void update(ProductVO productVO) throws Exception {
+		sqlSession.update("productMapper.update", productVO);
 	}
 	
 	
 	// 상품 삭제
 	@Override
-	public void gdelete(int pd_bno) throws Exception {
+	public void delete(int pd_bno) throws Exception {
 		sqlSession.delete("productMapper.delete", pd_bno);
 	}
 
@@ -71,6 +73,43 @@ public class ProductDAOImpl implements ProductDAO {
 	@Override
 	public int hlistCount(SearchCriteria scri) throws Exception {
 		return sqlSession.selectOne("productMapper.hlistCount", scri);
+	}
+
+	
+	// 이미지 저장
+	@Override
+	public void fileSave(Map<String, String> fileMap) throws Exception {
+		sqlSession.insert("productMapper.fileSave", fileMap);
+	}
+
+	// pd_bno얻기
+	@Override
+	public int productbno(ProductVO productVO) throws Exception {
+		
+		int pnum;
+		
+		pnum = sqlSession.selectOne("productMapper.maxbno");
+		
+		return pnum;
+	}
+
+	
+	// 이미지 삭제(테이블)
+	@Override
+	public void idelete(int pd_bno) throws Exception {
+		sqlSession.delete("productMapper.idelete", pd_bno);
+	}
+
+	//pno에 해당하는 사진경로중 가장 먼저올린것 1개의 filePath 반환
+	@Override
+	public String getImg(int pd_bno) throws Exception {
+		return sqlSession.selectOne("productMapper.getimg", pd_bno);
+	}
+
+	// 게시글 사진 가져오기
+	@Override
+	public List<ImgVO> imglist(int pd_bno) throws Exception {
+		return sqlSession.selectList("productMapper.imglist", pd_bno);
 	}
 
 

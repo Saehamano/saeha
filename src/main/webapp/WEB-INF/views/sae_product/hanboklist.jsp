@@ -51,7 +51,7 @@
 						<td><c:out value="${hanboklist.pd_bno }" /></td>
 						<td><a href="/sae_product/read?pd_bno=${hanboklist.pd_bno}&pd_type=${hanboklist.pd_type}&page=${scri.page}&perPageNum=${scri.perPageNum}
 									&searchType=${scri.searchType }&keyword=${srci.keyword }">
-							<img src="/resources/productimg/${hanboklist.pd_file }"/></a></td>
+							<img src="/resources/productimg/${hanboklist.p_filepath }"/></a></td>
 							
 						<td><c:out value="${hanboklist.pd_name}" /></td>
 						<td><c:out value="${hanboklist.pd_price }" /></td>

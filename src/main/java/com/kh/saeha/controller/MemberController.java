@@ -1,5 +1,7 @@
 package com.kh.saeha.controller;
 
+import java.util.Random;
+
 import javax.inject.Inject;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.saeha.service.MemberService;
@@ -31,6 +34,16 @@ public class MemberController {
 	@Autowired
 	private JavaMailSender mailSender; // smtp기능을 위한 문구
 
+	//회원가입약관 get
+	@RequestMapping(value = "/agree_register", method = RequestMethod.GET)
+	public String getRegisteragree() throws Exception {
+		logger.info("get register 2022 1201");
+		
+		return "sae_member/agree_register";
+		
+	}
+	
+	
 	// 회원가입 get 11
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public void getRegister() throws Exception {
@@ -40,11 +53,11 @@ public class MemberController {
 
 	// 회원가입 get 22
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String postRegister(MemberVO vo) throws Exception {
+	public String postRegister(MemberVO vo, Model model) throws Exception {
 		logger.info("post register");
 		service.register(vo);
-
-		return "sae_member/login";
+		model.addAttribute("register", vo);
+		return "sae_member/success_register";
 	}
 
 	// 로그인 33
@@ -63,12 +76,15 @@ public class MemberController {
 		if (login == null) {
 			session.setAttribute("member", null);
 			rttr.addFlashAttribute("msg", false);
+			return "redirect:/sae_member/login";
 		} else {
 			session.setAttribute("member", login);
+			session.setAttribute("userid", vo.getUserId());
 			System.out.println(session.getAttribute("member"));
 			logger.info("member777 : " + login);
+			return "redirect:/";
 		}
-		return "redirect:/";
+		
 	}
 
 	// 로그아웃
@@ -206,7 +222,7 @@ public class MemberController {
 		session.setAttribute("member", login);
 		rttr.addFlashAttribute("msg", true);
 		
-		session.setAttribute("loginlogin", "hello");
+		session.setAttribute("loginlogin", "kakao");
 		return "redirect:/";
 	}
 
@@ -224,10 +240,38 @@ public class MemberController {
 		session.setAttribute("member", login);
 		rttr.addFlashAttribute("msg", true);
 		
-		session.setAttribute("loginlogin", "hello");
+		session.setAttribute("loginlogin", "naver");
 		System.out.println(login);
 
 		return "redirect:/";
 	}
+	
+	// naver 로그인
+		@RequestMapping(value = "/callback", method = RequestMethod.GET)
+		public String callback() throws Exception {
 
+			
+
+			return "/sae_member/callback";
+		}
+	
+	// 구글 로그인
+		@RequestMapping(value = "/google", method = RequestMethod.GET)
+		public String google(HttpServletRequest req, String userId, String birthday, String email , RedirectAttributes rttr) throws Exception {
+
+			HttpSession session = req.getSession();
+			MemberVO login = new MemberVO();
+
+			login.setUserId(userId);
+			login.setUserBirth(birthday);
+			login.setUserMail(email);
+			
+			session.setAttribute("member", login);
+			rttr.addFlashAttribute("msg", true);
+			
+			session.setAttribute("loginlogin", "google");
+			System.out.println(login);
+
+			return "redirect:/";
+		}
 }

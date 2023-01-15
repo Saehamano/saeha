@@ -51,7 +51,7 @@
 						<td><c:out value="${goodslist.pd_bno }" /></td>
 						<td><a href="/sae_product/read?pd_bno=${goodslist.pd_bno}&pd_type=${goodslist.pd_type}&page=${scri.page}&perPageNum=${scri.perPageNum}
 									&searchType=${scri.searchType }&keyword=${srci.keyword }">
-							<img src="/resources/productimg/${goodslist.pd_file }"/></a></td>
+							<img src="/resources/productimg/${goodslist.p_filepath }"/></a></td>
 							
 						<td><c:out value="${goodslist.pd_name}" /></td>
 						<td><c:out value="${goodslist.pd_price }" /></td>

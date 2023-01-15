@@ -19,11 +19,18 @@
 	$(document).ready(function() {
 		var formObj = $("form[name='writeForm']");
 		
+		$("#pd_stock").change(function() {
+			if(stockChk()){
+
+				return false;
+			}
+		});
+		
 		$(".write_btn").on("click", function() {
 			if(fn_valiChk()){
 			return false;
 			}
-		
+			
 		formObj.attr("action", "/sae_product/productwrite");
 		formObj.attr("method","post");
 		formObj.submit();
@@ -37,6 +44,15 @@
 				return true;
 			}
 		}
+	}
+	
+	function stockChk() {
+		var number = $('#pd_stock').val();
+		if (number <= 0){
+			alert("재고수량은 1이상 입력하셔야 합니다");
+			$('#pd_stock').val('1');
+			return ture;
+		}		
 	}
 </script>
 <body>
@@ -52,10 +68,11 @@
 	<table>
 	<tbody>
 		<c:if test="${member.userId == 'admin' }">
-		<input type="hidden" id="pd_readcount" name=pd_readcount value="0" />
+		<input type="hidden" id="pd_readcount" name="pd_readcount" value="0" />
+		<input type="hidden" id="pd_buycount" name="pd_buycount" value="0" />
 		<tr><td>
 			<label for= "pd_type">상품 종류</label>	
-			<input type="radio" name="pd_type" value="g">굿즈
+			<input type="radio" name="pd_type" value="g" checked="checked">굿즈
 			<input type="radio" name="pd_type" value="h">한복
 			</td>
 		</tr>
@@ -70,7 +87,7 @@
 		</tr>
 		<tr>
 			<td>
-			<label for = "pd_stock">재고수량</label><input type="number" id="pd_stock" name = "pd_stock" class="chk" title="재고수량을 입력하세요." />
+			<label for = "pd_stock">재고수량</label><input type="number" id="pd_stock" name = "pd_stock" class="chk" title="재고수량을 입력하세요." value="1" />
 			</td>
 		</tr>
 		<tr>
@@ -79,12 +96,15 @@
 			</td>
 		</tr>
 		<tr><td>
-			<label for= "uploadFile">굿즈사진</label><input type="file" id="uploadFile" multiple="multiple" name="uploadFile" class="chk" title="굿즈 사진을 입력하세요" />
+			<label for= "uploadFile">사진</label><input multiple="multiple" type="file" id="file" name="file" class="chk" title="상품 사진을 입력하세요" />
 			</td>
 		</tr>
 		<tr>	
 			<td>
 			<button class="write_btn" type="submit">등록</button>
+			</td>
+			<td>
+			<button type="button"><a href="/sae_product/productmain">뒤로</a></button>
 			</td>
 		</tr>
 		</c:if>

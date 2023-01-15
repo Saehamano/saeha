@@ -6,33 +6,85 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- 최소화된 최신 CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<!-- 부가적인 테마 -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-
-<script
-	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-<!-- 부트스트랩은 트위터에서 사용하는 각종 레이아웃, 버튼, 입력상 등의 디자인을 css와 javascript로 만들어 놓은 것이다. 
-          .Easy to use : HTML 과 CSS 기본 지식을 가진 누구나 쉽게 접근 가능( + javascript)
-          .Responsive features : 반응형 CSS를 포함한 단일 코드로 모든 디바이스에 적용할 수 있음
-          .Browser compatibility : 모든 최신 브라우저와 호환
-          
-          부트스트앱의 CSS와 Javascript, 관련 이미지만 설치하고 미리 지정된 CSS 클래스나
-          JavaScript 함수만 불러오면 트위터에서 쓰는 것과 비슷한 디자인이 뚝!딱! 만들어진다.
-       -->
 <meta charset="UTF-8">
 <title>회원가입</title>
+<style type="text/css">
+body{justify-content: center; margin: 0 auto;width:100%;}
+.user-wrap {
+	background-image: url(/resources/img/login_bnr.jpeg);
+	height: 300px;
+    background-size: cover;
+    background-position: 50% 50%;
+	}
+
+.login_text{
+	position: absolute;
+	top: 35%;
+	left:50%;
+	width:100%;
+	transform: translate(-50%,-50%);
+	font-size: 48px;
+	text-align: center;
+	color:white;
+}
+.agree{
+    border: 2px solid #ebebeb;
+    color: #505050;
+    width: 200px;
+    height: 35px;
+    text-align: center;
+    background-repeat-x: no-repeat;
+    background-repeat-y: no-repeat;
+    background-position-x: 50%;
+    background-position-y: 25px;
+    padding-top: 100px;
+    background-size: 56px;
+}
+.agree1{
+ 	border: 2px solid black;
+    width: 200px;
+    height: 35px;
+    text-align: center;
+    background-image: url(/resources/img/join1.png);
+    background-repeat-x: no-repeat;
+    background-repeat-y: no-repeat;
+    background-position-x: 50%;
+    background-position-y: 25px;
+    padding-top: 100px;
+    background-size: 56px;
+}
+.agree2{
+	color: #808080;
+    font-size: 15px;
+    margin-top: 10px;
+    display: block;
+    text-align: center;
+}
+hr{background:#ebebeb;
+    height:1.5px;
+    border:0;}
+.title{ margin-top: 60px;font-size: 20px;}
+.formdiv{padding: 11px 0; display: flex;}
+
+.formdiv label::before{
+	content: "v ";
+    line-height: 26px;
+    color: #366ac1;
+    font-size: 16px;
+}
+label{
+/* 	border: 1px solid black; */
+	height: 30px;
+	width: 140px;
+	}
+
+</style>
 </head>
+<script
+   src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
-		//목록 이동
-		$(".cencle").on("click", function() {
-			location.href = "/board/list";
-		})
+		
 		$("#year").on("change", function(){
 			var month = $("#month").val();
 			if(month<10)
@@ -109,7 +161,7 @@
 					$("#over1").text(xhr.responseText);
 					
 					var over1 = xhr.responseText;
-					if(over1 == " 사용할 수 있는 ID입니다."){
+					if(over1 == "사용할 수 있는 ID입니다."){
 						$("#over1").attr("style", "color:#3333FF");
 					}else{
 						$("#over1").attr("style", "color:#FF0099");
@@ -172,31 +224,100 @@
 				return false;
 			}
 		});
+		
+		var nansu;
+		var smsnansu=false;
+		$("#send-one").on("click", function(){
+			var xhr = new XMLHttpRequest();
+		
+			xhr.open("GET", "http://localhost:8080/send-one?userTel="+$("#userTel").val(), true);
+			xhr.send();
+			
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200){
+					nansu = xhr.responseText;
+					alert("인증번호가 전송되었습니다.");
+				}
+			}
+			
+		});
+		$("#send-two").on("click", function(){
+			var sms = $("#checksms").val();
+			
+			if(sms == nansu){
+				alert("인증이 완료되었습니다.");
+				smsnansu=true;
+			}else{
+				alert("인증에 실패했습니다.")
+				smsnansu=false;
+			}
+		});
+		$("#aaa").submit(function(){
+			
+			if(smsnansu == true){
+		
+			}else{
+				alert("인증번호를 확인해주세요.");
+				return false;
+			}
+		});
 	});
 </script>
 <body>
-	<section id="container">
+
+<%@include file='../include/nav.jsp' %>
+
+<div class="user-wrap">
+<div class="login_text"><p>회원가입</p></div>
+</div>
+
+<div style="padding:60px 0; height: 100%;">
+
+	<!--아이콘박스 -->
+	<div style="display: flex; width: 720px;">
+		<div>
+		<div class="agree" style="background-image: url(/resources/img/join1g.png);"><strong>약관동의</strong></div>
+		<span class="agree2">STEP.1</span>
+		</div>
+		
+		<div>
+		<div class="agree1" style="background-image: url(/resources/img/join2b.png);"><strong>정보입력</strong></div>
+		<span class="agree2">STEP.2</span>
+		</div>
+	
+		<div>
+		<div class="agree" style="background-image: url(/resources/img/join3g.png);"><strong>가입완료</strong></div>
+		<span class="agree2">STEP.3</span>
+		</div>
+	</div>
+
+	<!--회원가입 -->
+	<div style="width:85%;">
+		<div class="title">개인정보</div>
+		<hr>
+		<section id="container">
 		<form action="/sae_member/register" method="post">
-			<div class="form-group has-feedback">
-				<label class="control-label" for="userId">아이디</label><span id="over1">&nbsp;&nbsp;&nbsp;</span><input
-					class="form-control" type="text" id="userId" name="userId" />
+		
+			<div class="formdiv">
+				<label  for="userId">아이디</label>
+				<input	 type="text" id="userId" name="userId" />
+				<span id="over1">&nbsp;&nbsp;&nbsp;</span>
 			</div>
-			<div class="form-group has-feedback">
-				<label class="control-label" for="userPass">패스워드</label> <input
-					class="form-control" type="password" id="userPass" name="userPass" />
+			<hr>
+			<div class="formdiv">
+				<div style="width:40%;display:flex;">
+				<label  for="userPass">비밀번호</label> 
+				<input type="password" id="userPass" name="userPass" />
+				</div>
+				<div style="width:60%;display:flex;">
+				<label  for="userPass2">비밀번호 확인</label>
+			    <input	type="password" id="userPass2" name="userPass2" />
+				<div id="warning" name="warning" style="padding-top: 10px;"></div>
+			    </div>
 			</div>
-			<div class="form-group has-feedback">
-				<label class="control-label" for="userPass2">패스워드 확인</label> <input
-					class="form-control" type="password" id="userPass2" name="userPass2" />
-			</div>
-			<div id="warning" name="warning">
-			</div>
-			<div class="form-group has-feedback" style="margin-top:8px">
-				<label class="control-label" for="userName">성명</label> <input
-					class="form-control" type="text" id="userName" name="userName" />
-			</div>
-			<div class="form-group has-feedback">
-				<label class="control-label" for="userBirth">생년월일</label>
+			<hr>
+			<div class="formdiv">
+				<label for="userBirth"> 생년월일</label>
 				
 				 <select
 					id="year" name="year">
@@ -207,7 +328,7 @@
 					<%
 					}
 					%>
-				</select> 
+				</select> &nbsp;
 					 <select
 					id="month" name="month">
 					<% for (int i = 1; i< 13; i++)
@@ -217,7 +338,7 @@
 					<%
 					}
 					%>
-				</select> 
+				</select> &nbsp;
 					 <select
 					id="day" name="day">
 					<% for (int i = 1; i< 32; i++)
@@ -227,33 +348,55 @@
 					<%
 					}
 					%>
-				</select> 
-				<input class="form-control" type="text" id="userBirth"
-					name="userBirth" readonly/>
+				</select> &nbsp;&nbsp;
+				<input  type="text" id="userBirth" name="userBirth" readonly/>
+				<div id="type" name="type">&nbsp;&nbsp;&nbsp;</div>
 			</div>
-			<div id="type" name="type">
+			
+			
+			<hr>
+			<div class="formdiv">
+				<label class="control-label" for="userName"> 성명</label>
+				<input type="text" id="userName" name="userName" />
+			
 			</div>
-			<div class="form-group has-feedback" style="margin-top:8px">
-				<label class="control-label" for="userTel">전화번호</label> <input
-					class="form-control" type="tel"  id="userTel" name="userTel" 
-					pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" placeholder="010-0000-0000"
-       required />
+			<hr>
+			<div class="title">연락처</div>
+			<hr>
+			<div class="formdiv">
+				<label for="userAddress">주소</label>
+				<input type="text" id="userAddress"	name="userAddress" />
 			</div>
-			<div class="form-group has-feedback">
-				<label class="control-label" for="userMail">메일</label> <input
-					class="form-control" type="email" id="userMail" name="userMail" placeholder="email@address" />
+			<hr>
+			<div class="formdiv">
+				<div style="width:50%;display:flex;">
+				<label  for="userTel"> 전화번호</label> 
+				<input type="tel"  id="userTel" name="userTel" 
+				 placeholder="01012345678형식을 맞춰주세요" />
+				&nbsp;&nbsp;
+				<button id="send-one" type="button">인증번호 받기</button>
+				</div>
+				<div style="width:50%;display:50%;">
+				<input id="checksms" type="text" placeholder="인증번호를 입력해주세요">
+				&nbsp;&nbsp;
+				<button id="send-two" type="button">인증확인</button>
+				</div>			
 			</div>
-			<div class="form-group has-feedback">
-				<label class="control-label" for="userAddress">주소</label> <input
-					class="form-control" type="text" id="userAddress"
-					name="userAddress" />
+			<hr>
+			<div class="formdiv">
+				<label  for="userMail"> 메일</label> 
+				<input type="email" id="userMail" name="userMail" placeholder="email@address" />
 			</div>
-			<div class="form-group has-feedback">
-				<button class="btn btn-success" type="submit" id="submit">회원가입</button>
-				<button class="cancle btn btn-danger" type="button">목록 이동</button>
+			<hr>
+			
+			<div style="text-align: center;">
+				<button  type="button" style=" height: 45px; padding: 12px 18px;background-color: white;">취소</button>
+				<button  type="submit" id="submit" style=" height: 45px; padding: 12px 18px; background-color: black;color:white;">회원가입</button>
 			</div>
+			
 		</form>
 	</section>
-
+	</div>
+</div>
 </body>
 </html>
